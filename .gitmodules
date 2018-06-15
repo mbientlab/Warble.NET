@@ -1,0 +1,3 @@
+[submodule "clibs/warble"]
+	path = clibs/warble
+	url = https://github.com/mbientlab/Warble.git
