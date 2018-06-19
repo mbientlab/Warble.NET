@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>MbientLab.Warble.ExampleReadDevInfo</AssemblyName>
+    <RootNamespace>MbientLab.Warble.Example</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Warble.NetStandard\Warble.NetStandard.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Warble.NetStandard</AssemblyName>
+    <RootNamespace>MbientLab.Warble</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>mbientlab.pfx</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Warble.NetStandard.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
