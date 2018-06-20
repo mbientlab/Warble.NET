@@ -5,12 +5,12 @@ Warble.NET provides a C# API around the [Warble C library](https://github.com/mb
 Add the Warble.NetStandard package to your project with the Package Manager Console:
 
 ```bat
-PM> Install-Package Warble.NetStandard
+PM> Install-Package Warble.Net
 ```
 
 Or add a **PackageReference** tag to your *.csproj file:
 ```xml
-<PackageReference Include="Warble.NetStandard" Version="[1.0, 2.0)" />
+<PackageReference Include="Warble.Net" Version="[1.0, 2.0)" />
 ```
 
 Linux developers will also need to build Warble on their machine and place the .so files in the appropriate folders.  
