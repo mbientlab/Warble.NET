@@ -10,7 +10,7 @@ PM> Install-Package Warble.Net
 
 Or add a **PackageReference** tag to your *.csproj file:
 ```xml
-<PackageReference Include="Warble.Net" Version="[1.0, 2.0)" />
+<PackageReference Include="Warble.Net" Version="[1.0.4, 2.0)" />
 ```
 
 Linux developers will also need to build Warble on their machine and place the .so files in the appropriate folders.  

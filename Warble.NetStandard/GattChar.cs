@@ -13,7 +13,7 @@ namespace MbientLab.Warble {
         /// </summary>
         public String Uuid { get => Marshal.PtrToStringAnsi(warble_gattchar_get_uuid(WarbleGattChar)); }
         /// <summary>
-        /// Handler to process characteristic notifications
+        /// Handler to process characteristic notifications, <see cref="EnableNotificationsAsync"/>
         /// </summary>
         public Action<byte[]> OnNotificationReceived { get; set; }
 
@@ -102,11 +102,11 @@ namespace MbientLab.Warble {
             await warbleTaskSrc.Task;
         }
         /// <summary>
-        /// Enables characteristic notifications, which are forwarded to <see cref="OnNotificationReceived"/>
+        /// Enables characteristic notifications, which are forwarded to the <see cref="OnNotificationReceived"/> delegate
         /// </summary>
         /// <returns>Null when notifications are enabled</returns>
         /// <exception cref="WarbleException">If notify enable operation fails</exception>
-        public Task EnableNotifications() {
+        public Task EnableNotificationsAsync() {
             return EditNotification(completed => warble_gattchar_enable_notifications_async(WarbleGattChar, IntPtr.Zero, completed));
         }
         /// <summary>
@@ -114,8 +114,17 @@ namespace MbientLab.Warble {
         /// </summary>
         /// <returns>Null when notifications are disabled</returns>
         /// <exception cref="WarbleException">If notify disable operation fails</exception>
-        public Task DisableNotifications() {
+        public Task DisableNotificationsAsync() {
             return EditNotification(completed => warble_gattchar_disable_notifications_async(WarbleGattChar, IntPtr.Zero, completed));
+        }
+
+        [Obsolete("Deprecated in v1.0.4, use EnableNotificationsAsync instead")]
+        public Task EnableNotifications() {
+            return EnableNotificationsAsync();
+        }
+        [Obsolete("Deprecated in v1.0.4, use DisableNotificationsAsync instead")]
+        public Task DisableNotifications() {
+            return DisableNotificationsAsync();
         }
     }
 }

@@ -35,13 +35,13 @@ namespace MbientLab.Warble {
             options[0].key = "mac";
             options[0].value = mac;
             if (hci != null && RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-                options[1].key = "hci";
-                options[1].value = hci;
+                options[actualSize].key = "hci";
+                options[actualSize].value = hci;
                 actualSize++;
             }
             if (addrType != null) {
-                options[2].key = "address-type";
-                options[2].value = addrType;
+                options[actualSize].key = "address-type";
+                options[actualSize].value = addrType;
                 actualSize++;
             }
 
