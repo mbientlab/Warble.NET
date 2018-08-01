@@ -72,19 +72,28 @@ namespace MbientLab.Warble {
         /// <summary>
         /// Start BLE scanning
         /// </summary>
-        /// <param name="hci"></param>
-        public static void Start(string hci = null) {
+        /// <param name="hci">Mac address of the hci device to use, only applicable on Linux</param>
+        /// <param name="scanType">Type of ble scan to perform, either 'passive' or 'active'</param>
+        public static void Start(string hci = null, string scanType = null) {
+            Option[] options = new Option[2];
+            byte actualSize = 0;
+
             if (hci != null && RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-                Option[] options = new Option[1] {
-                    new Option {
-                        key = "hci",
-                        value = hci
-                    }
+                options[actualSize] = new Option {
+                    key = "hci",
+                    value = hci
                 };
-                warble_scanner_start(1, options);
-            } else {
-                warble_scanner_start(0, null);
+                actualSize++;
             }
+            if (scanType != null) {
+                options[actualSize] = new Option {
+                    key = "scan-type",
+                    value = scanType
+                };
+                actualSize++;
+            }
+
+            warble_scanner_start(actualSize, options);
         }
         /// <summary>
         /// Stop BLE scanning

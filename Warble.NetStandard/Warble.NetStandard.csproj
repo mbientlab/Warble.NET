@@ -5,7 +5,7 @@
     <AssemblyName>Warble.NetStandard</AssemblyName>
     <RootNamespace>MbientLab.Warble</RootNamespace>
     <SignAssembly>false</SignAssembly>
-    <Version>1.0.4</Version>
+    <Version>1.1.0</Version>
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>

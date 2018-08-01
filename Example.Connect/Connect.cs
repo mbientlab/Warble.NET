@@ -10,11 +10,15 @@ namespace MbientLab.Warble.Example {
         private static async Task MainAsync(string[] args) {
             var gatt = new Gatt(args[0]);
 
-            await gatt.ConnectAsync();
-            Console.WriteLine("Connected");
+            for (int i = 0; i < 3; i++) {
+                await gatt.ConnectAsync();
+                Console.WriteLine("Connected");
 
-            await Task.Delay(5000);
-            gatt.Disconnect();
+                await Task.Delay(5000);
+                gatt.Disconnect();
+
+                Console.WriteLine("Am I connected? " + gatt.IsConnected);
+            }
         }
     }
 }

@@ -29,9 +29,14 @@ namespace MbientLab.Warble.Example {
                 Console.WriteLine("======");
             };
 
+            Console.WriteLine("-- active scan --");
             Scanner.Start();
-            await Task.Delay(10000);
+            await Task.Delay(5000);
+            Scanner.Stop();
 
+            Console.WriteLine("-- passive scan --");
+            Scanner.Start(scanType: "passive");
+            await Task.Delay(5000);
             Scanner.Stop();
         }
     }
