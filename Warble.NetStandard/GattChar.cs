@@ -15,22 +15,26 @@ namespace MbientLab.Warble {
         /// <summary>
         /// Handler to process characteristic notifications, <see cref="EnableNotificationsAsync"/>
         /// </summary>
-        public Action<byte[]> OnNotificationReceived { get; set; }
+        public Action<byte[]> OnNotificationReceived {
+            set {
+                if (value != null) {
+                    WarbleNotifyHandler = new FnVoid_VoidP_WarbleGattCharP_UbyteP_Ubyte((context, caller, pointer, size) => {
+                        byte[] managedArray = new byte[size];
+                        Marshal.Copy(pointer, managedArray, 0, size);
+                        value.Invoke(managedArray);
+                    });
+                    warble_gattchar_on_notification_received(WarbleGattChar, IntPtr.Zero, WarbleNotifyHandler);
+                } else {
+                    warble_gattchar_on_notification_received(WarbleGattChar, IntPtr.Zero, null);
+                }
+            }
+        }
 
         private readonly IntPtr WarbleGattChar;
-        private readonly FnVoid_VoidP_WarbleGattCharP_UbyteP_Ubyte WarbleNotifyHandler;
+        private FnVoid_VoidP_WarbleGattCharP_UbyteP_Ubyte WarbleNotifyHandler;
 
         internal GattChar(IntPtr pointer) {
             WarbleGattChar = pointer;
-
-            WarbleNotifyHandler = new FnVoid_VoidP_WarbleGattCharP_UbyteP_Ubyte((context, caller, value, value_size) => {
-                if (OnNotificationReceived != null) {
-                    byte[] managedArray = new byte[value_size];
-                    Marshal.Copy(value, managedArray, 0, value_size);
-                    OnNotificationReceived(managedArray);
-                }
-            });
-            warble_gattchar_on_notification_received(WarbleGattChar, IntPtr.Zero, WarbleNotifyHandler);
         }
 
         private async Task WriteAsync(Action<FnVoid_VoidP_WarbleGattCharP_CharP> fn) {

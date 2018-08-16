@@ -23,7 +23,7 @@ namespace MbientLab.Warble.Example {
                 };
 
                 foreach(var id in uuids) {
-                    var gattchar = gatt.FindCharacteristic(id);
+                    var gattchar = await gatt.FindCharacteristicAsync("0000180a-0000-1000-8000-00805f9b34fb", id);
 
                     Console.Write(mac + " -> ");
                     if (gattchar == null) {

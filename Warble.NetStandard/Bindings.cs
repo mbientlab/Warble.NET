@@ -96,6 +96,9 @@ namespace MbientLab.Warble {
         internal static extern IntPtr warble_gatt_find_characteristic(IntPtr gatt, [MarshalAs(UnmanagedType.LPStr)] string uuid);
 
         [DllImport(WARBLE_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void warble_gatt_find_characteristic_async(IntPtr gatt, [MarshalAs(UnmanagedType.LPStr)] string service, [MarshalAs(UnmanagedType.LPStr)] string uuid, IntPtr context, FnVoid_VoidP_WarbleGattCharP_CharP handler);
+
+        [DllImport(WARBLE_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int warble_gatt_has_service(IntPtr gatt, [MarshalAs(UnmanagedType.LPStr)] string uuid);
 
         [DllImport(WARBLE_DLL, CallingConvention = CallingConvention.Cdecl)]

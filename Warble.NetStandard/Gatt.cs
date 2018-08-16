@@ -76,6 +76,10 @@ namespace MbientLab.Warble {
         /// Disconnects from the remote device
         /// </summary>
         public void Disconnect() {
+            foreach (var _ in Characteristics) {
+                _.Value.OnNotificationReceived = null;
+            }
+
             warble_gatt_disconnect(WarbleGatt);
         }
 
@@ -93,6 +97,27 @@ namespace MbientLab.Warble {
                     Characteristics.Add(uuid, gattchar);
                 }
             }
+
+            return gattchar;
+        }
+
+        public async Task<GattChar> FindCharacteristicAsync(string service, string uuid) {
+            if (!Characteristics.TryGetValue(uuid, out var gattchar)) {
+                TaskCompletionSource<IntPtr> warbleTaskSrc = new TaskCompletionSource<IntPtr>();
+                var handler = new FnVoid_VoidP_WarbleGattCharP_CharP((ctx, caller, pointer) => {
+                    if (caller == IntPtr.Zero) {
+                        warbleTaskSrc.SetException(new WarbleException(pointer));
+                    } else {
+                        warbleTaskSrc.SetResult(caller);
+                    }
+                });
+
+                warble_gatt_find_characteristic_async(WarbleGatt, service, uuid, IntPtr.Zero, handler);
+                var result = await warbleTaskSrc.Task;
+
+                gattchar = result == IntPtr.Zero ? null : new GattChar(result);
+                Characteristics.Add(uuid, gattchar);
+            }   
 
             return gattchar;
         }
